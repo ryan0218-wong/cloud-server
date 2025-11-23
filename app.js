@@ -63,6 +63,12 @@ const isAuthenticated = (req, res, next) => {
   }
   res.redirect('/login');
 };
+const apiAuthenticated = (req, res, next) => {
+  if (req.session.userId || req.user) {
+    return next();
+  }
+  res.status(401).json({ error: 'Not authenticated' });
+};
 
 // Routes: Auth
 app.get('/', (req, res) => res.redirect('/login'));
@@ -143,7 +149,7 @@ app.delete('/books/:id', isAuthenticated, async (req, res) => {
 });
 
 // RESTful API (No auth)
-app.get('/api/books', async (req, res) => {
+app.get('/api/books', apiAuthenticated, async (req, res) => {
   const { title, author, isbn } = req.query;
   let query = {};
   if (title) query.title = { $regex: title, $options: 'i' };
@@ -152,16 +158,16 @@ app.get('/api/books', async (req, res) => {
   const books = await Book.find(query);
   res.json(books);
 });
-app.post('/api/books', async (req, res) => {
+app.post('/api/books', apiAuthenticated, async (req, res) => {
   const book = new Book(req.body);
   await book.save();
   res.json(book);
 });
-app.put('/api/books/:id', async (req, res) => {
+app.put('/api/books/:id', apiAuthenticated, async (req, res) => {
   const book = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
   res.json(book);
 });
-app.delete('/api/books/:id', async (req, res) => {
+app.delete('/api/books/:id', apiAuthenticated, async (req, res) => {
   await Book.findByIdAndDelete(req.params.id);
   res.sendStatus(204);
 });
