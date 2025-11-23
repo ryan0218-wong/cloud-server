@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head><title>Dashboard</title></head>
+<body>
+<h2>Dashboard</h2>
+<a href="/logout">Logout</a>
+<br/><br/>
+<form method="GET" action="/search">
+    <input type="text" name="query" placeholder="Search by name" />
+    <button type="submit">Search</button>
+</form>
+<br/>
+<a href="/create">Create New Item</a>
+<table border="1">
+<tr><th>Name</th><th>Description</th><th>Actions</th></tr>
+<% data.forEach(function(item) { %>
+<tr>
+<td><%= item.name %></td>
+<td><%= item.description %></td>
+<td>
+<a href="/update/<%= item.id %>">Update</a>
+<form style="display:inline" method="POST" action="/delete/<%= item.id %>">
+    <button type="submit">Delete</button>
+</form>
+</td>
+</tr>
+<% }) %>
+</table>
+</body>
+</html>

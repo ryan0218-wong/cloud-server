@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Books</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <%- include('partials/header') %>
+
+  <h1>Books</h1>
+
+  <!-- Search (Read) -->
+  <form action="/books" method="GET">
+    <input type="text" name="title" placeholder="Search by Title">
+    <input type="text" name="author" placeholder="Search by Author">
+    <input type="text" name="isbn" placeholder="Search by ISBN">
+    <button type="submit">Search</button>
+  </form>
+
+  <!-- List Books -->
+  <ul>
+    <% books.forEach(book => { %>
+      <li>
+        <%= book.title %> by <%= book.author %> (ISBN: <%= book.isbn %>)
+        <a href="/books/<%= book._id %>/edit">Edit</a>
+        <form action="/books/<%= book._id %>?_method=DELETE" method="POST" style="display:inline;">
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+    <% }) %>
+  </ul>
+
+  <!-- Create Form -->
+  <h2>Create Book</h2>
+  <form action="/books" method="POST">
+    <input type="text" name="title" placeholder="Title" required>
+    <input type="text" name="author" placeholder="Author" required>
+    <input type="text" name="isbn" placeholder="ISBN" required>
+    <button type="submit">Create</button>
+  </form>
+
+  <!-- Update Form (if editing) -->
+  <% if (editBook) { %>
+    <h2>Update Book</h2>
+    <form action="/books/<%= editBook._id %>?_method=PUT" method="POST">
+      <input type="text" name="title" value="<%= editBook.title %>" required>
+      <input type="text" name="author" value="<%= editBook.author %>" required>
+      <input type="text" name="isbn" value="<%= editBook.isbn %>" required>
+      <button type="submit">Update</button>
+    </form>
+  <% } %>
+</body>
+</html>
