@@ -5,9 +5,17 @@
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <h2>Login</h2>
+  <div class="container">
 
-  <% if (typeof error !== 'undefined' && error) { %>
+    <!-- 主題區：登入歡迎 -->
+    <div class="library-hero">
+      <h1>Welcome to Your Modern Library</h1>
+      <h2>Member Login</h2>
+      <p>Log in to discover, borrow, and manage your books.<br>
+      Ready to embark on your learning adventure?</p>
+    </div>
+    
+    <% if (typeof error !== 'undefined' && error) { %>
     <p style="color: red;"><%= error %></p>
   <% } %>
 
@@ -17,15 +25,17 @@
     <button type="submit">Login</button>
   </form>
 
-  <hr>
+  
 
   <!-- Facebook Login Button -->
   <button onclick="window.location='/auth/facebook'" style="background:#4267B2; color:white; border:none; padding:10px 20px; margin-top:10px; cursor:pointer;">
     Login with Facebook
   </button>
-  
+
+
   <p>
     No account? <a href="/register">Register here</a>
   </p>
+</div>
 </body>
 </html>
