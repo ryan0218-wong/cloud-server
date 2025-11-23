@@ -102,14 +102,16 @@ app.post('/register', async (req, res) => {
 app.get('/logout', (req, res, next) => {
   req.session.destroy(() => {
     // 有 Passport 時安全登出
-    if (typeof req.logout === "function") {
+    if (typeof req.logout === "function") 
+      {res.redirect('/login');
+      
+    } else {
       req.logout((err) => {
         // 若 Passport 有錯誤則直接顯示
         if (err) { return next(err); }
         res.redirect('/login');
       });
-    } else {
-      res.redirect('/login');
+      
     }
   });
 });
