@@ -1,5 +1,179 @@
-body { font-family: Arial, sans-serif; }
-form { margin-bottom: 20px; }
-input { margin-right: 10px; }
-ul { list-style-type: none; padding: 0; }
-li { margin-bottom: 10px; }
+body {
+  font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg, #d6f0fa 0%, #ffe0eb 100%);
+  color: #232b36;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.library-hero {
+  padding: 32px 22px 28px 22px;
+  background: linear-gradient(120deg, #e0f7fa 0%, #ffe0eb 100%);
+  color: #224471;
+  text-align: center;
+  border-radius: 18px;
+  box-shadow: 0 2px 13px #abbde670;
+  margin-bottom: 34px;
+}
+.library-hero h1 {
+  font-size: 2.3em;
+  font-weight: bold;
+  color: #1866a0;
+  text-shadow: 0 1px 8px #bee9fc85;
+  margin: 0 0 11px 0;
+  letter-spacing: 1px;
+}
+.library-hero h2 {
+  font-size: 1.45em;
+  color: #ff8599;
+  margin: 0 0 12px 0;
+  font-weight: 600;
+}
+.library-hero p {
+  font-size: 1.13em;
+  color: #224471;
+  margin: 0;
+  opacity: 0.82;
+}
+
+/* -------- 其餘網站主 CSS（含書列表、表單、卡片、彩色） -------- */
+.container {
+  max-width: 860px;
+  margin: 44px auto;
+  background: #fff;
+  border-radius: 22px;
+  box-shadow: 0 9px 30px #bbc4db44, 0 5px 24px #ffd3eb35;
+  padding: 38px 34px 28px 34px;
+}
+
+form {
+  margin-bottom: 30px;
+  background: linear-gradient(120deg, #ffe0eb 0%, #f8faff 100%);
+  border-radius: 10px;
+  box-shadow: 0 2px 14px #eaf4ff40;
+  padding: 17px 13px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+input, button {
+  margin-right: 11px;
+  padding: 8px 15px;
+  border-radius: 7px;
+  border: 2px solid #d1b7e6;
+  font-size: 1em;
+  transition: border-color 0.17s;
+}
+
+input:focus {
+  border-color: #7e3ff2;
+  outline: none;
+  background: #efe4fd;
+}
+
+button {
+  background: linear-gradient(90deg, #ff89c1 5%, #7e3ff2 80%, #44dfb6 100%);
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  box-shadow: 2px 3px 14px #7e3ff240;
+  transition: background 0.18s, transform 0.1s;
+}
+button:hover {
+  background: linear-gradient(90deg, #ffe0eb 10%, #ff89c1 70%, #44dfb6 100%);
+  transform: scale(1.11);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 18px;
+}
+
+li {
+  margin-bottom: 26px;
+  background: linear-gradient(90deg, #faffeb, #f8faff, #ffd3eb);
+  border-radius: 18px;
+  box-shadow: 0 2px 16px #f5d1eb70;
+  padding: 24px 23px;
+  display: flex;
+  align-items: flex-start;
+  min-height: 130px;
+  gap: 30px;
+  position: relative;
+  border-left: 8px solid #7e3ff2;
+  animation: fadein 1s;
+}
+li:nth-child(4n+1) { border-left-color: #44dfb6; }
+li:nth-child(4n+2) { border-left-color: #ff89c1; }
+li:nth-child(4n+3) { border-left-color: #ffea79; }
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.book-photo {
+  width: 86px;
+  height: 116px;
+  object-fit: cover;
+  border-radius: 9px;
+  box-shadow: 0 2px 8px #dbefff70;
+  margin-right: 22px;
+  background: #eaf0f9;
+  flex-shrink: 0;
+  border: 1.5px solid #ff89c1;
+}
+.book-photo:empty {
+  background: #eaf0f9 url('https://img.icons8.com/material/48/ffd3eb/book.png') center/36px no-repeat;
+}
+.book-info {
+  flex: 1;
+  margin-top: 3px;
+  font-size: 1.13em;
+}
+.book-info strong {
+  font-size: 1.16em;
+  color: #7e3ff2;
+}
+.book-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-left: 10px;
+  align-items: flex-end;
+}
+
+a {
+  color: #44dfb6;
+  background: linear-gradient(90deg, #ffe0eb 60%, #ff89c1 100%);
+  text-decoration: none;
+  padding: 6px 17px;
+  border-radius: 8px;
+  transition: background 0.22s, color 0.15s;
+  font-weight: bold;
+  font-size: 1em;
+  box-shadow: 0 1px 7px #44dfb615;
+}
+a:hover {
+  background: linear-gradient(90deg, #44dfb6 10%, #7e3ff2 80%);
+  color: #fff;
+}
+
+h1, h2 {
+  color: #7e3ff2;
+  margin-bottom: 17px;
+  letter-spacing: 1.3px;
+  font-weight: bold;
+  text-shadow: 0 1px 12px #ffd3eb55;
+}
+@media (max-width: 900px) {
+  .container { max-width: 98vw; margin: 7px; padding: 9px; }
+  li { flex-wrap: wrap; min-height: 90px; padding: 10px 6px; gap: 7px; }
+  .book-photo { width: 56px; height: 67px; margin-right: 4px; }
+}
+::-webkit-scrollbar { height:8px; width:8px; background:#ffe0eb; }
+::-webkit-scrollbar-thumb { background: #ff89c1; border-radius: 6px; }
