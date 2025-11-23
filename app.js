@@ -100,17 +100,19 @@ app.post('/register', async (req, res) => {
   res.redirect('/books');
 });
 app.get('/logout', (req, res, next) => {
-  req.session.destroy();
-  if (req.logout) {
-    req.logout(function(err) {
-      if (err) { return next(err); }
+  req.session.destroy(() => {
+    // 有 Passport 時安全登出
+    if (typeof req.logout === "function") {
+      req.logout((err) => {
+        // 若 Passport 有錯誤則直接顯示
+        if (err) { return next(err); }
+        res.redirect('/login');
+      });
+    } else {
       res.redirect('/login');
-    });
-  } else {
-    res.redirect('/login');
-  }
+    }
+  });
 });
-
 // Facebook Auth routes
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback',
