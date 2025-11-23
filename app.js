@@ -14,6 +14,7 @@ const User = require('./models/User');
 
 // Middleware (順序不可錯)
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(methodOverride('_method')); // For PUT/DELETE in forms
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
@@ -175,6 +176,6 @@ app.delete('/api/books/:id', apiAuthenticated, async (req, res) => {
   await Book.findByIdAndDelete(req.params.id);
   res.sendStatus(204);
 });
-app.use(bodyParser.json());
+
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
