@@ -1,53 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Books</title>
+  <title>Books | Library</title>
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <%- include('partials/header') %>
+  <div class="container">
 
-  <h1>Books</h1>
+    <!-- 主題區塊：圖書館首頁 -->
+    <div class="library-hero">
+      <h1>Welcome to Your Modern Library</h1>
+      <h2>Discover. Borrow. Learn.</h2>
+      <p>Connecting You to Knowledge, Stories, and Community.<br>
+         Explore thousands of books, journals, and digital resources.<br>
+         Your journey in lifelong learning starts here!</p>
+    </div>
 
-  <!-- Search (Read) -->
-  <form action="/books" method="GET">
-    <input type="text" name="title" placeholder="Search by Title">
-    <input type="text" name="author" placeholder="Search by Author">
-    <input type="text" name="isbn" placeholder="Search by ISBN">
-    <button type="submit">Search</button>
-  </form>
-
-  <!-- List Books -->
-  <ul>
-    <% books.forEach(book => { %>
-      <li>
-        <%= book.title %> by <%= book.author %> (ISBN: <%= book.isbn %>)
-        <a href="/books/<%= book._id %>/edit">Edit</a>
-        <form action="/books/<%= book._id %>?_method=DELETE" method="POST" style="display:inline;">
-          <button type="submit">Delete</button>
-        </form>
-      </li>
-    <% }) %>
-  </ul>
-
-  <!-- Create Form -->
-  <h2>Create Book</h2>
-  <form action="/books" method="POST">
-    <input type="text" name="title" placeholder="Title" required>
-    <input type="text" name="author" placeholder="Author" required>
-    <input type="text" name="isbn" placeholder="ISBN" required>
-    <button type="submit">Create</button>
-  </form>
-
-  <!-- Update Form (if editing) -->
-  <% if (editBook) { %>
-    <h2>Update Book</h2>
-    <form action="/books/<%= editBook._id %>?_method=PUT" method="POST">
-      <input type="text" name="title" value="<%= editBook.title %>" required>
-      <input type="text" name="author" value="<%= editBook.author %>" required>
-      <input type="text" name="isbn" value="<%= editBook.isbn %>" required>
-      <button type="submit">Update</button>
+    <!-- Search (Read) -->
+    <form action="/books" method="GET">
+      <input type="text" name="title" placeholder="Search by Title">
+      <input type="text" name="author" placeholder="Search by Author">
+      <input type="text" name="isbn" placeholder="Search by ISBN">
+      <button type="submit">Search</button>
     </form>
-  <% } %>
+
+    <!-- List Books -->
+    <ul>
+      <% books.forEach(book => { %>
+        <li>
+          <% if (book.photoUrl) { %>
+            <img class="book-photo" src="<%= book.photoUrl %>" alt="Cover">
+          <% } else { %>
+            <div class="book-photo"></div>
+          <% } %>
+          <div class="book-info">
+            <strong><%= book.title %></strong> by <%= book.author %>
+            <br>
+            (ISBN: <%= book.isbn %>)
+          </div>
+          <div class="book-actions">
+            <a href="/books/<%= book._id %>/edit">Edit</a>
+            <form action="/books/<%= book._id %>?_method=DELETE" method="POST">
+              <button type="submit">Delete</button>
+            </form>
+          </div>
+        </li>
+      <% }) %>
+    </ul>
+
+    <!-- Create Form -->
+    <h2>Create Book</h2>
+    <form action="/books" method="POST">
+      <input type="text" name="title" placeholder="Title" required>
+      <input type="text" name="author" placeholder="Author" required>
+      <input type="text" name="isbn" placeholder="ISBN" required>
+      <input type="text" name="photoUrl" placeholder="Cover Image URL (optional)">
+      <button type="submit">Create</button>
+    </form>
+
+    <!-- Update Form (if editing) -->
+    <% if (editBook) { %>
+      <h2>Update Book</h2>
+      <form action="/books/<%= editBook._id %>?_method=PUT" method="POST">
+        <input type="text" name="title" value="<%= editBook.title %>" required>
+        <input type="text" name="author" value="<%= editBook.author %>" required>
+        <input type="text" name="isbn" value="<%= editBook.isbn %>" required>
+        <input type="text" name="photoUrl" value="<%= editBook.photoUrl || '' %>" placeholder="Cover Image URL">
+        <button type="submit">Update</button>
+      </form>
+    <% } %>
+  </div>
 </body>
 </html>
