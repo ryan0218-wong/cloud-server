@@ -98,7 +98,7 @@ app.post('/register', async (req, res) => {
   const user = new User({ username, password }); // bcrypt production
   await user.save();
   req.session.userId = user._id;
-  res.redirect('/books');
+  res.redirect('/login');
 });
 app.get('/logout', (req, res, next) => {
   req.session.destroy(() => {
