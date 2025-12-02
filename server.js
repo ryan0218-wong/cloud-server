@@ -12,7 +12,7 @@ const port = process.env.PORT || 3000;
 const Book = require('./models/Book');
 const User = require('./models/User');
 
-// Middleware (順序不可錯)
+// Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(methodOverride('_method')); // For PUT/DELETE in forms
@@ -20,7 +20,7 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
-// 先啟動 session middleware
+// session middleware
 app.use(session({
   secret: 'your-secret-key', // Change for production!
   resave: false,
@@ -28,7 +28,7 @@ app.use(session({
   cookie: { secure: false } // Set true for HTTPS
 }));
 
-// 再啟動 passport
+// passport
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -39,7 +39,7 @@ mongoose.connect('mongodb+srv://work:work@lab01test.iszzytc.mongodb.net/bookdb?r
 
 // Passport config for Facebook
 passport.use(new FacebookStrategy({
-  clientID: 'YOUR_FACEBOOK_CLIENT_ID', // 填自己的
+  clientID: 'YOUR_FACEBOOK_CLIENT_ID', // 
   clientSecret: 'YOUR_FACEBOOK_CLIENT_SECRET',
   callbackURL: '/auth/facebook/callback'
 }, async (accessToken, refreshToken, profile, done) => {
@@ -102,13 +102,13 @@ app.post('/register', async (req, res) => {
 });
 app.get('/logout', (req, res, next) => {
   req.session.destroy(() => {
-    // 有 Passport 時安全登出
+    //  Passport 
     if (typeof req.logout === "function") 
       {res.redirect('/login');
       
     } else {
       req.logout((err) => {
-        // 若 Passport 有錯誤則直接顯示
+        //  Passport 
         if (err) { return next(err); }
         res.redirect('/login');
       });
